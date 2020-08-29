@@ -29,7 +29,7 @@
     </visual>
   </link>
 
-  <link name="$(arg tf_prefix)camera_base">
+  <link name="$(arg tf_prefix)link">
     <visual>
       <origin xyz="-0.013 0. 0." />
       <geometry>
@@ -50,13 +50,13 @@
   </link>
 
   <joint name="$(arg tf_prefix)camera_base_to_body" type="fixed">
-    <parent link="$(arg tf_prefix)camera_base" />
+    <parent link="$(arg tf_prefix)link" />
     <child link="$(arg tf_prefix)camera_body" />
     <origin xyz="-0.0757 0. 0.008" rpy="0. 0. 0." />
   </joint>
 
   <joint name="$(arg tf_prefix)camera_base_to_visor" type="fixed">
-    <parent link="$(arg tf_prefix)camera_base" />
+    <parent link="$(arg tf_prefix)link" />
     <child link="$(arg tf_prefix)camera_visor" />
     <origin xyz="0. 0. 0." rpy="0. 0. 0." />
   </joint>
