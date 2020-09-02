@@ -626,7 +626,7 @@ k4a_result_t K4AROSDevice::fillColorPointCloud(const k4a::image& pointcloud_imag
       *iter_x = *iter_y = *iter_z = std::numeric_limits<float>::quiet_NaN();
       if (a == 0)
       {
-        ROS_WARN("a == 0");
+        // ROS_WARN("a == 0");
       }
       else
       {
