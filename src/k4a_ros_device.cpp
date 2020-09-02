@@ -627,6 +627,10 @@ k4a_result_t K4AROSDevice::fillColorPointCloud(const k4a::image& pointcloud_imag
       if (a == 0)
       {
         // ROS_WARN("a == 0");
+        *iter_r = color_buffer[4 * i + 2];
+        *iter_g = color_buffer[4 * i + 1];
+        *iter_b = color_buffer[4 * i + 0];
+        ROS_WARN("r=[%d], g=[%d], b=[%d]",color_buffer[4 * i + 2], color_buffer[4 * i + 1], color_buffer[4 * i + 0]);
       }
       else
       {
