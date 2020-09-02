@@ -624,7 +624,9 @@ k4a_result_t K4AROSDevice::fillColorPointCloud(const k4a::image& pointcloud_imag
     if (z <= 0.0f || a == 0)
     {
       *iter_x = *iter_y = *iter_z = std::numeric_limits<float>::quiet_NaN();
-      *iter_r = *iter_g = *iter_b = 0;
+      *iter_r = color_buffer[4 * i + 2];
+      *iter_g = color_buffer[4 * i + 1];
+      *iter_b = color_buffer[4 * i + 0];
     }
     else
     {
