@@ -55,6 +55,7 @@ class K4AROSDevice
   k4a_result_t getDepthFrame(const k4a::capture& capture, sensor_msgs::ImagePtr& depth_frame, bool rectified);
 
   k4a_result_t getPointCloud(const k4a::capture& capture, sensor_msgs::PointCloud2Ptr& point_cloud);
+  k4a_result_t getPointCloudInRgbFrame(const k4a::capture& capture, sensor_msgs::PointCloud2Ptr& point_cloud);
 
   k4a_result_t getRgbPointCloudInRgbFrame(const k4a::capture& capture, sensor_msgs::PointCloud2Ptr& point_cloud);
   k4a_result_t getRgbPointCloudInDepthFrame(const k4a::capture& capture, sensor_msgs::PointCloud2Ptr& point_cloud);
@@ -82,6 +83,8 @@ class K4AROSDevice
   k4a_result_t renderIrToROS(sensor_msgs::ImagePtr& ir_image, k4a::image& k4a_ir_frame);
 
   k4a_result_t fillPointCloud(const k4a::image& pointcloud_image, sensor_msgs::PointCloud2Ptr& point_cloud);
+  k4a_result_t fillPointCloud2(const k4a::image& pointcloud_image, const k4a::image& color_image,
+                                   sensor_msgs::PointCloud2Ptr& point_cloud);
   k4a_result_t fillColorPointCloud(const k4a::image& pointcloud_image, const k4a::image& color_image,
                                    sensor_msgs::PointCloud2Ptr& point_cloud);
 
