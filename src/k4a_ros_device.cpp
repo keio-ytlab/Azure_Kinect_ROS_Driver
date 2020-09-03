@@ -578,7 +578,7 @@ k4a_result_t K4AROSDevice::getPointCloudInRgbFrame(const k4a::capture& capture,
     ROS_ERROR("Cannot render RGB point cloud: no BGRA frame");
     return K4A_RESULT_FAILED;
   }
-
+  cout<<"depth_image_to_color_camera"<<endl;
   // transform depth image into color camera geometry
   calibration_data_.k4a_transformation_.depth_image_to_color_camera(k4a_depth_frame,
                                                                     &calibration_data_.transformed_depth_image_);
@@ -586,7 +586,7 @@ k4a_result_t K4AROSDevice::getPointCloudInRgbFrame(const k4a::capture& capture,
   // Tranform depth image to point cloud (note that this is now from the perspective of the color camera)
   calibration_data_.k4a_transformation_.depth_image_to_point_cloud(
       calibration_data_.transformed_depth_image_, K4A_CALIBRATION_TYPE_COLOR, &calibration_data_.point_cloud_image_);
-
+  cout<<"depth_image_to_point_cloud"<<endl;
   point_cloud->header.frame_id = calibration_data_.tf_prefix_ + calibration_data_.rgb_camera_frame_;
   point_cloud->header.stamp = timestampToROS(k4a_depth_frame.get_device_timestamp());
   printTimestampDebugMessage("RGB point cloud", point_cloud->header.stamp);
