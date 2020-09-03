@@ -770,14 +770,14 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
   point_cloud->is_dense = false;
   point_cloud->is_bigendian = false;
 
-  size_t point_count = pointcloud_image.get_height_pixels()* pointcloud_image.get_width_pixels();
+  size_t point_count_full = pointcloud_image.get_height_pixels()* pointcloud_image.get_width_pixels();
   const size_t pixel_count = color_image.get_size() / sizeof(BgraPixel);
   if (point_count != pixel_count)
   {
     ROS_WARN("Color and depth image sizes do not match!");
     return K4A_RESULT_FAILED;
   }
-  point_count /= 4;
+  int point_count_quarter = pixel_count / 4;
 
   sensor_msgs::PointCloud2Modifier pcd_modifier(*point_cloud);
   pcd_modifier.setPointCloud2FieldsByString(1, "xyz");
@@ -786,7 +786,7 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
   sensor_msgs::PointCloud2Iterator<float> iter_y(*point_cloud, "y");
   sensor_msgs::PointCloud2Iterator<float> iter_z(*point_cloud, "z");
 
-  pcd_modifier.resize(point_count);
+  pcd_modifier.resize(point_count_quarter);
 
   const int16_t* point_cloud_buffer = reinterpret_cast<const int16_t*>(pointcloud_image.get_buffer());
   int image_width = pointcloud_image.get_width_pixels();
@@ -795,8 +795,17 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
     int pixel_num = i;
     int width = pixel_num % image_width;
     int height = (int) (pixel_num / image_width);
-    cout << image_width <<" " <<width << " " <<height<< endl;
+    if (width % 2 == 1 && height % 2 == 1)
+    {
+      cout << "ok" << image_width <<" " <<width << " " <<height<< endl;
+    }
+    else
+    {
+      cout << "ng" <<image_width <<" " <<width << " " <<height<< endl;
+    }
+    
     // Z in image frame:
+
     float z = static_cast<float>(point_cloud_buffer[3 * i + 2]);
     if (z <= 0.0f )
     {
