@@ -1,6 +1,6 @@
 <launch>
   <!-- Valid options: calibration, pcd_with_color, and pcd_without_color-->
-  <arg name="mode"                                  default="pcd_with_color" />
+  <arg name="mode"                                  default="pcd_without_color" />
 
   <include file="$(find azure_kinect_ros_driver)/additional_launch/include/$(arg mode).launch">
     <arg name="cam_name"                            default="env_cam11" />

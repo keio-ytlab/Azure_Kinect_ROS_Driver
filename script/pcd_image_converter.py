@@ -45,6 +45,10 @@ class PcdImageConverter():
                 elif resolution == 1048576:
                     width = 1024
                     height = 1024
+                # 720P (same with rgb resolution)
+                elif resolution == 230400:
+                    width = 640
+                    height = 360
                 else:
                     rospy.logerr("[Detectron2 ROS] Received Unknown Resolution PCD")
                     rospy.logerr("    You can use generating image from pcd onyl when using Azure Kinect DK.")
@@ -55,7 +59,13 @@ class PcdImageConverter():
             # save data to arrary
             pcd_original = ros_numpy.numpify(pcd)
             pcd_original = pcd_original.reshape(height, width)
-            array[:, :] = pcd_original['rgb']
+            
+            # PCD with rgb
+            if 'rgb' in pcd_original:
+                array[:, :] = pcd_original['rgb']
+            # PCD without rgb
+            else:
+                array[:, :] = pcd_original['x'] * 255.0
 
             # convert color (html color -> rgb)
             data = array.view(np.uint8).reshape(array.shape+(4,))[..., :3]

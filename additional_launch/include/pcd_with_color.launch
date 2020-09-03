@@ -16,7 +16,7 @@
     <!-- Valid options: true and false -->
     <arg name="rgb_point_cloud"                     default="true" />
     <!-- Valid options: true and false -->
-    <arg name="point_cloud_in_depth_frame"          default="true" />
+    <arg name="point_cloud_in_depth_frame"          default="false" />
   </include>
 
   <!-- generating image from pcd -->
