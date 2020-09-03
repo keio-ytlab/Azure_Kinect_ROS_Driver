@@ -817,8 +817,6 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
     {
       // cout << "ng" <<image_width <<" " <<width << " " <<height<< endl;
     }
-    
-    
   }
 
   return K4A_RESULT_SUCCEEDED;
