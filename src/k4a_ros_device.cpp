@@ -745,8 +745,6 @@ k4a_result_t K4AROSDevice::fillPointCloud2(const k4a::image& pointcloud_image, c
   {
     // Z in image frame:
     float z = static_cast<float>(point_cloud_buffer[3 * i + 2]);
-    // Alpha value:
-    uint8_t a = color_buffer[4 * i + 3];
     if (z <= 0.0f )
     {
       *iter_x = *iter_y = *iter_z = std::numeric_limits<float>::quiet_NaN();
