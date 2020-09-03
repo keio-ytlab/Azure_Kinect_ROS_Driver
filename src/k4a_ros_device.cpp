@@ -790,34 +790,35 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
 
   const int16_t* point_cloud_buffer = reinterpret_cast<const int16_t*>(pointcloud_image.get_buffer());
   int image_width = pointcloud_image.get_width_pixels();
-  for (size_t i = 0; i < point_count_full; i++, ++iter_x, ++iter_y, ++iter_z)
+  for (size_t i = 0; i < point_count_full; i++)
   {
     int pixel_num = i;
     int width = pixel_num % image_width;
     int height = (int) (pixel_num / image_width);
     if (width % 2 == 1 && height % 2 == 1)
     {
-      cout << "ok" << image_width <<" " <<width << " " <<height<< endl;
+      // cout << "ok" << image_width <<" " <<width << " " <<height<< endl;
+      // Z in image frame:
+      float z = static_cast<float>(point_cloud_buffer[3 * i + 2]);
+      if (z <= 0.0f )
+      {
+        *iter_x = *iter_y = *iter_z = std::numeric_limits<float>::quiet_NaN();
+      }
+      else
+      {
+        constexpr float kMillimeterToMeter = 1.0 / 1000.0f;
+        *iter_x = kMillimeterToMeter * static_cast<float>(point_cloud_buffer[3 * i + 0]);
+        *iter_y = kMillimeterToMeter * static_cast<float>(point_cloud_buffer[3 * i + 1]);
+        *iter_z = kMillimeterToMeter * z;
+      }
+      ++iter_x, ++iter_y, ++iter_z;
     }
     else
     {
-      cout << "ng" <<image_width <<" " <<width << " " <<height<< endl;
+      // cout << "ng" <<image_width <<" " <<width << " " <<height<< endl;
     }
     
-    // Z in image frame:
-
-    float z = static_cast<float>(point_cloud_buffer[3 * i + 2]);
-    if (z <= 0.0f )
-    {
-      *iter_x = *iter_y = *iter_z = std::numeric_limits<float>::quiet_NaN();
-    }
-    else
-    {
-      constexpr float kMillimeterToMeter = 1.0 / 1000.0f;
-      *iter_x = kMillimeterToMeter * static_cast<float>(point_cloud_buffer[3 * i + 0]);
-      *iter_y = kMillimeterToMeter * static_cast<float>(point_cloud_buffer[3 * i + 1]);
-      *iter_z = kMillimeterToMeter * z;
-    }
+    
   }
 
   return K4A_RESULT_SUCCEEDED;
