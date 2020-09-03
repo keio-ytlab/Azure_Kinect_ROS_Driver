@@ -789,13 +789,13 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
   pcd_modifier.resize(point_count);
 
   const int16_t* point_cloud_buffer = reinterpret_cast<const int16_t*>(pointcloud_image.get_buffer());
-
+  int image_width = pointcloud_image.get_width_pixels();
   for (size_t i = 0; i < point_count; i++, ++iter_x, ++iter_y, ++iter_z)
   {
     int pixel_num = i;
-    int width = pixel_num % point_cloud->width;
-    int height = (int) pixel_num / point_cloud->width;
-    cout << width << " " <<height<< endl;
+    int width = pixel_num % image_width;
+    int height = (int) (pixel_num / image_width);
+    cout << image_width  <<width << " " <<height<< endl;
     // Z in image frame:
     float z = static_cast<float>(point_cloud_buffer[3 * i + 2]);
     if (z <= 0.0f )
