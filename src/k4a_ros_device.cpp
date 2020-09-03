@@ -791,6 +791,9 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
   for (size_t i = 0; i < point_count; i++, ++iter_x, ++iter_y, ++iter_z)
   {
     int pixel_num = i;
+    int width = pixel_num % point_cloud->width
+    int height = int(pixel_num / point_cloud->width)
+    cout << width << " " <<height<< endl;
     // Z in image frame:
     float z = static_cast<float>(point_cloud_buffer[3 * i + 2]);
     if (z <= 0.0f )
