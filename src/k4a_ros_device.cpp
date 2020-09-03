@@ -770,9 +770,9 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
   point_cloud->is_dense = false;
   point_cloud->is_bigendian = false;
 
-  size_t point_count_full = pointcloud_image.get_height_pixels()* pointcloud_image.get_width_pixels();
+  const_size_t point_count_full = pointcloud_image.get_height_pixels()* pointcloud_image.get_width_pixels();
   const size_t pixel_count = color_image.get_size() / sizeof(BgraPixel);
-  if (point_count != pixel_count)
+  if (point_count_full != pixel_count)
   {
     ROS_WARN("Color and depth image sizes do not match!");
     return K4A_RESULT_FAILED;
@@ -790,7 +790,7 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
 
   const int16_t* point_cloud_buffer = reinterpret_cast<const int16_t*>(pointcloud_image.get_buffer());
   int image_width = pointcloud_image.get_width_pixels();
-  for (size_t i = 0; i < point_count; i++, ++iter_x, ++iter_y, ++iter_z)
+  for (size_t i = 0; i < point_count_full; i++, ++iter_x, ++iter_y, ++iter_z)
   {
     int pixel_num = i;
     int width = pixel_num % image_width;
