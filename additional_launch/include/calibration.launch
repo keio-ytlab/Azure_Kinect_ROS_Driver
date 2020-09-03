@@ -1,7 +1,7 @@
 <launch>
   <arg name="cam_name" />
   <arg name="serial_number" />
-  <include file="$(find azure_kinect_ros_driver)/launch/include/base.launch">
+  <include file="$(find azure_kinect_ros_driver)/additional_launch/include/base.launch">
     <arg name="cam_name"                            default="$(arg cam_name)" />
     <arg name="serial_number"                       default="$(arg serial_number)" />
 
