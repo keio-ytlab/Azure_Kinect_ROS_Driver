@@ -1,7 +1,7 @@
 <launch>
     <arg name="camera_name" />
     
-    <node pkg="azure_kinect_ros_driver" type="pcd_image_converter.py" name="pcd_image_converter_$(arg camera_name)" >
+    <node pkg="azure_kinect_ros_driver" type="pcd_image_converter.py" name="pcd_image_converter_$(arg camera_name)" output="screen">
         <param name="camera_name"                               value="$(arg camera_name)" />
         <param name="input_pcd_topic_name"                      value="/$(arg camera_name)/depth/points" />
         <param name="output_image_topic_name"                   value="/$(arg camera_name)/rgb/image_gen_from_pcd" />

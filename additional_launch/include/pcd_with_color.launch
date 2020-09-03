@@ -20,7 +20,7 @@
   </include>
 
   <!-- generating image from pcd -->
-  <include file="$(find azure_kinect_ros_driver)/additional_launch/include/pcd_iamge_converter.launch" if="$(arg enable_generating_image)">
+  <include file="$(find azure_kinect_ros_driver)/additional_launch/include/pcd_image_converter.launch" if="$(arg enable_generating_image)">
     <arg name="camera_name"                         default="$(arg cam_name)" />
   </include>
 </launch>

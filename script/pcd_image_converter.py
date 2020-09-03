@@ -1,16 +1,24 @@
 #!/usr/bin/env python
 
+import rospy
+import numpy as np
+import ros_numpy
+from sensor_msgs.msg import PointCloud2
+from sensor_msgs.msg import Image
+
 class PcdImageConverter():
     def __init__(self):
         self.camera_name_ = rospy.get_param("~camera_name")
-        self.input_pcd_topic_name_ = "/" + self.camera_name + "/depth/points"
-        self.output_image_topic_name_ = "/" + self.camera_name + "/rgb/" + rospy.get_param("~output_image_topic_name")
+        self.input_pcd_topic_name_ = rospy.get_param("~input_pcd_topic_name")
+        self.output_image_topic_name_ = rospy.get_param("~output_image_topic_name")
         self.sub_pcd_ = rospy.Subscriber(self.input_pcd_topic_name_, PointCloud2, self.cb_pcd, queue_size=1)
         self.pub_image_ = rospy.Publisher(self.output_image_topic_name_, Image, queue_size=1)
 
     def cb_pcd(self, _pcd_msg):
-        image = generate_image(_pcd_msg)
-        self.pub_image_.publish(image)
+        image = self.generate_image(_pcd_msg)
+        image.header = _pcd_msg.header
+        if image is not None:
+            self.pub_image_.publish(image)
 
     def generate_image(self, pcd):
         # start_time = time.time()
