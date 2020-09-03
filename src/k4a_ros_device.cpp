@@ -591,7 +591,8 @@ k4a_result_t K4AROSDevice::getPointCloudInRgbFrame(const k4a::capture& capture,
   point_cloud->header.stamp = timestampToROS(k4a_depth_frame.get_device_timestamp());
   printTimestampDebugMessage("RGB point cloud", point_cloud->header.stamp);
 
-  return fillPointCloud2(calibration_data_.point_cloud_image_, k4a_bgra_frame, point_cloud);
+  // return fillPointCloud2(calibration_data_.point_cloud_image_, k4a_bgra_frame, point_cloud);
+  return fillPointCloudQuarter(calibration_data_.point_cloud_image_, k4a_bgra_frame, point_cloud);
 }
 
 k4a_result_t K4AROSDevice::getPointCloud(const k4a::capture& capture, sensor_msgs::PointCloud2Ptr& point_cloud)
@@ -755,6 +756,66 @@ k4a_result_t K4AROSDevice::fillPointCloud2(const k4a::image& pointcloud_image, c
       *iter_x = kMillimeterToMeter * static_cast<float>(point_cloud_buffer[3 * i + 0]);
       *iter_y = kMillimeterToMeter * static_cast<float>(point_cloud_buffer[3 * i + 1]);
       *iter_z = kMillimeterToMeter * z;
+    }
+  }
+
+  return K4A_RESULT_SUCCEEDED;
+}
+
+k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_image, const k4a::image& color_image,
+                                               sensor_msgs::PointCloud2Ptr& point_cloud)
+{
+  point_cloud->height = pointcloud_image.get_height_pixels();
+  point_cloud->width = pointcloud_image.get_width_pixels();
+  point_cloud->is_dense = false;
+  point_cloud->is_bigendian = false;
+
+  const size_t point_count_full = pointcloud_image.get_height_pixels()* pointcloud_image.get_width_pixels();
+  const size_t pixel_count = color_image.get_size() / sizeof(BgraPixel);
+  if (point_count_full != pixel_count)
+  {
+    ROS_WARN("Color and depth image sizes do not match!");
+    return K4A_RESULT_FAILED;
+  }
+  int point_count_quarter = pixel_count / 4;
+
+  sensor_msgs::PointCloud2Modifier pcd_modifier(*point_cloud);
+  pcd_modifier.setPointCloud2FieldsByString(1, "xyz");
+
+  sensor_msgs::PointCloud2Iterator<float> iter_x(*point_cloud, "x");
+  sensor_msgs::PointCloud2Iterator<float> iter_y(*point_cloud, "y");
+  sensor_msgs::PointCloud2Iterator<float> iter_z(*point_cloud, "z");
+
+  pcd_modifier.resize(point_count_quarter);
+
+  const int16_t* point_cloud_buffer = reinterpret_cast<const int16_t*>(pointcloud_image.get_buffer());
+  int image_width = pointcloud_image.get_width_pixels();
+  for (size_t i = 0; i < point_count_full; i++)
+  {
+    int pixel_num = i;
+    int width = pixel_num % image_width;
+    int height = (int) (pixel_num / image_width);
+    if (width % 2 == 0 && height % 2 == 0)
+    {
+      // cout << "ok" << image_width <<" " <<width << " " <<height<< endl;
+      // Z in image frame:
+      float z = static_cast<float>(point_cloud_buffer[3 * i + 2]);
+      if (z <= 0.0f )
+      {
+        *iter_x = *iter_y = *iter_z = std::numeric_limits<float>::quiet_NaN();
+      }
+      else
+      {
+        constexpr float kMillimeterToMeter = 1.0 / 1000.0f;
+        *iter_x = kMillimeterToMeter * static_cast<float>(point_cloud_buffer[3 * i + 0]);
+        *iter_y = kMillimeterToMeter * static_cast<float>(point_cloud_buffer[3 * i + 1]);
+        *iter_z = kMillimeterToMeter * z;
+      }
+      ++iter_x, ++iter_y, ++iter_z;
+    }
+    else
+    {
+      // cout << "ng" <<image_width <<" " <<width << " " <<height<< endl;
     }
   }
 
