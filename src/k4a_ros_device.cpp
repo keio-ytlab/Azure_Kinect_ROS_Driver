@@ -777,6 +777,7 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
     ROS_WARN("Color and depth image sizes do not match!");
     return K4A_RESULT_FAILED;
   }
+  point_count /= 4;
 
   sensor_msgs::PointCloud2Modifier pcd_modifier(*point_cloud);
   pcd_modifier.setPointCloud2FieldsByString(1, "xyz");
