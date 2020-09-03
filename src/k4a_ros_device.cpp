@@ -770,7 +770,7 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
   point_cloud->is_dense = false;
   point_cloud->is_bigendian = false;
 
-  const_size_t point_count_full = pointcloud_image.get_height_pixels()* pointcloud_image.get_width_pixels();
+  const size_t point_count_full = pointcloud_image.get_height_pixels()* pointcloud_image.get_width_pixels();
   const size_t pixel_count = color_image.get_size() / sizeof(BgraPixel);
   if (point_count_full != pixel_count)
   {
