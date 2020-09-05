@@ -621,7 +621,7 @@ k4a_result_t K4AROSDevice::fillColorPointCloud(const k4a::image& pointcloud_imag
 {
   point_cloud->height = pointcloud_image.get_height_pixels();
   point_cloud->width = pointcloud_image.get_width_pixels();
-  pointcloud->row_step = point_cloud->width * point_cloud->point_step;
+  point_cloud->row_step = point_cloud->width * point_cloud->point_step;
   point_cloud->is_dense = false;
   point_cloud->is_bigendian = false;
 
@@ -680,7 +680,7 @@ k4a_result_t K4AROSDevice::fillPointCloud(const k4a::image& pointcloud_image, se
 {
   point_cloud->height = pointcloud_image.get_height_pixels();
   point_cloud->width = pointcloud_image.get_width_pixels();
-  pointcloud->row_step = point_cloud->width * point_cloud->point_step;
+  point_cloud->row_step = point_cloud->width * point_cloud->point_step;
   point_cloud->is_dense = false;
   point_cloud->is_bigendian = false;
 
@@ -722,7 +722,7 @@ k4a_result_t K4AROSDevice::fillPointCloud2(const k4a::image& pointcloud_image, c
 {
   point_cloud->height = pointcloud_image.get_height_pixels();
   point_cloud->width = pointcloud_image.get_width_pixels();
-  pointcloud->row_step = point_cloud->width * point_cloud->point_step;
+  point_cloud->row_step = point_cloud->width * point_cloud->point_step;
   point_cloud->is_dense = false;
   point_cloud->is_bigendian = false;
 
@@ -770,7 +770,7 @@ k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_im
 {
   point_cloud->height = pointcloud_image.get_height_pixels();
   point_cloud->width = pointcloud_image.get_width_pixels();
-  pointcloud->row_step = point_cloud->width * point_cloud->point_step;
+  point_cloud->row_step = point_cloud->width * point_cloud->point_step;
   point_cloud->is_dense = false;
   point_cloud->is_bigendian = false;
 
