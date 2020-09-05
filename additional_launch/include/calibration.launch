@@ -2,6 +2,7 @@
   <arg name="cam_name" />
   <arg name="serial_number" />
   <arg name="enable_generating_image"               default="false" />
+  <arg name="depth_mode"                            default="WFOV_2X2BINNED" />
   
   <include file="$(find azure_kinect_ros_driver)/additional_launch/include/base.launch">
     <arg name="cam_name"                            default="$(arg cam_name)" />
@@ -12,7 +13,7 @@
     <!-- Valid options: 5, 15, and 30 -->
     <arg name="fps"                                 default="5" />
     <!-- Valid options: NFOV_UNBINNED, NFOV_2X2BINNED, WFOV_UNBINNED, WFOV_2X2BINNED, and PASSIVE_IR -->
-    <arg name="depth_mode"                          default="NFOV_UNBINNED" />
+    <arg name="depth_mode"                          default="WFOV_2X2BINNED" />
     <!-- Valid options: true and false -->
     <arg name="rgb_point_cloud"                     default="true" />
     <!-- Valid options: true and false -->
