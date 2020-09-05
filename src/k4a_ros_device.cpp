@@ -770,8 +770,9 @@ k4a_result_t K4AROSDevice::fillPointCloud2(const k4a::image& pointcloud_image, c
 k4a_result_t K4AROSDevice::fillPointCloudQuarter(const k4a::image& pointcloud_image, const k4a::image& color_image,
                                                sensor_msgs::PointCloud2Ptr& point_cloud)
 {
-  point_cloud->height = pointcloud_image.get_height_pixels();
-  point_cloud->width = pointcloud_image.get_width_pixels();
+  //make pcd quater size (1/4)
+  point_cloud->height = pointcloud_image.get_height_pixels() / 2;
+  point_cloud->width = pointcloud_image.get_width_pixels() / 2;
   point_cloud->row_step = point_cloud->width * point_cloud->point_step;
   point_cloud->is_dense = false;
   point_cloud->is_bigendian = false;
