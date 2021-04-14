@@ -13,7 +13,7 @@
     <arg name="fps"                                 default="5" />
 
     <!-- Valid options: NFOV_UNBINNED, NFOV_2X2BINNED, WFOV_UNBINNED, WFOV_2X2BINNED, and PASSIVE_IR -->
-    <arg name="depth_mode"                          default="WFOV_2X2BINNED" />
+    <arg name="depth_mode"                          default="NFOV_2X2BINNED" />
   </include>
 </launch>
 

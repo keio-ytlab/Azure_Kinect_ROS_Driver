@@ -12,9 +12,12 @@ Licensed under the MIT License.
   <arg name="base_name"                           default="$(arg cam_name)" />
   <arg name="rgb_topic_name"                      default="rgb/image_raw" />
   <arg name="rgb_info_topic_name"                 default="rgb/camera_info" />
-  <arg name="depth_info_topic_name"               default="depth/camera_info" />
   <arg name="pointcloud2_topic_name"              default="depth/points" />
+  <arg name="depth_topic_name"                    default="depth/image_raw" />
   <arg name="rgb_to_depth_topic_name"             default="rgb_to_depth/image_raw" />
+  <arg name="depth_to_rgb_topic_name"             default="depth_to_rgb/image_raw" />
+  <arg name="ir_info_topic_name"                  default="ir/camera_info" />
+  <arg name="ir_topic_name"                       default="ir/image_raw" />
 
   <arg name="tf_prefix"                           default="$(arg base_name)_" />               <!-- Prefix added to tf frame IDs. It typically contains a trailing '_' unless empty. -->
 
@@ -49,8 +52,11 @@ Licensed under the MIT License.
     <remap from="points2"                         to="$(arg base_name)/$(arg pointcloud2_topic_name)" />
     <remap from="rgb/image_raw"                   to="$(arg base_name)/$(arg rgb_topic_name)" />
     <remap from="rgb/camera_info"                 to="$(arg base_name)/$(arg rgb_info_topic_name)" />
-    <remap from="ir/camera_info"                  to="$(arg base_name)/$(arg depth_info_topic_name)" />
     <remap from="rgb_to_depth/image_raw"          to="$(arg base_name)/$(arg rgb_to_depth_topic_name)" />
+    <remap from="depth/image_raw"                 to="$(arg base_name)/$(arg depth_topic_name)" />
+    <remap from="depth_to_rgb/image_raw"          to="$(arg base_name)/$(arg depth_to_rgb_topic_name)" />
+    <remap from="ir/camera_info"                  to="$(arg base_name)/$(arg ir_info_topic_name)" />
+    <remap from="ir/image_raw"                    to="$(arg base_name)/$(arg ir_topic_name)" />
     <!-- default -->
     <param name="depth_enabled"     type="bool"   value="$(arg depth_enabled)" />
     <param name="depth_mode"        type="string" value="$(arg depth_mode)" />
