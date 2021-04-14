@@ -5,5 +5,26 @@
   <include file="$(find azure_kinect_ros_driver)/additional_launch/include/$(arg mode).launch">
     <arg name="cam_name"                            default="env_cam10" />
     <arg name="serial_number"                       default="000188493612" />
+
+    <!-- Valid options: 720P, 1080P, 1440P, 1536P, 2160P, 3072P -->
+    <arg name="color_resolution"                    default="720P" />
+
+    <!-- Valid options: 5, 15, and 30 -->
+    <arg name="fps"                                 default="5" />
+
+    <!-- Valid options: NFOV_UNBINNED, NFOV_2X2BINNED, WFOV_UNBINNED, WFOV_2X2BINNED, and PASSIVE_IR -->
+    <arg name="depth_mode"                          default="WFOV_2X2BINNED" />
   </include>
 </launch>
+
+<!-- ============================================================================= -->
+<!-- |   depth_mode   |   resolution  |     Fol     |   FPS       |  depth range | -->
+<!-- ============================================================================= -->
+<!-- | NFOV_UNBINNED  | 640 x 576     | 75° x 65°   | 0、5、15、30 | 0.5 ~ 3.86m  | -->
+<!-- ============================================================================= -->
+<!-- | NFOV_2X2BINNED | 320 x 288     | 75° x 65°   | 0、5、15、30 | 0.5 ~ 5.46m  | -->
+<!-- ============================================================================= -->
+<!-- | WFOV_UNBINNED  | 512 x 512     | 120° x 120° | 0、5、15、30 | 0.25 ~ 2.88m | -->
+<!-- ============================================================================= -->
+<!-- | WFOV_2X2BINNED | 1,024 x 1,024 | 120° x 120° | 0、5、15     | 0.25 ~ 2.21m | -->
+<!-- ============================================================================= -->
