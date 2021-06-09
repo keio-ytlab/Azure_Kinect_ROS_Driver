@@ -21,7 +21,7 @@ Licensed under the MIT License.
 
   <arg name="tf_prefix"                           default="$(arg base_name)_" />               <!-- Prefix added to tf frame IDs. It typically contains a trailing '_' unless empty. -->
 
-  <param name="robot_description"
+  <param name="$(arg base_name)_description"
     command="xacro $(find azure_kinect_ros_driver)/urdf/azure_kinect.urdf.xacro tf_prefix:=$(arg tf_prefix)" />
 
   <node name="joint_state_publisher_$(arg base_name)" pkg="joint_state_publisher" type="joint_state_publisher" />
