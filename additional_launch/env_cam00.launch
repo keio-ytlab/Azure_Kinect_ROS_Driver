@@ -14,6 +14,9 @@
 
     <!-- Valid options: NFOV_UNBINNED, NFOV_2X2BINNED, WFOV_UNBINNED, WFOV_2X2BINNED, and PASSIVE_IR -->
     <arg name="depth_mode"                          default="NFOV_2X2BINNED" />
+
+    <!-- Valid options: 0: OFF, 1: MASTER, 2: SUBORDINATE. --> 
+    <arg name="wired_sync_mode"                     default="0" />
   </include>
 </launch>
 
