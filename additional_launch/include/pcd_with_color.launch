@@ -7,26 +7,28 @@
   <arg name="wired_sync_mode"                       default="0" />
   <arg name="enable_generating_image"               default="false" />
 
-  <include file="$(find azure_kinect_ros_driver)/additional_launch/include/base.launch">
-    <arg name="cam_name"                            default="$(arg cam_name)" />
-    <arg name="serial_number"                       default="$(arg serial_number)" />
+  <group ns="env/$(arg cam_name)">
+    <include file="$(find azure_kinect_ros_driver)/additional_launch/include/base.launch">
+      <arg name="cam_name"                            default="$(arg cam_name)" />
+      <arg name="serial_number"                       default="$(arg serial_number)" />
 
-    <!-- Valid options: 720P, 1080P, 1440P, 1536P, 2160P, 3072P -->
-    <arg name="color_resolution"                    default="$(arg color_resolution)" />
-    <!-- Valid options: 5, 15, and 30 -->
-    <arg name="fps"                                 default="$(arg fps)" />
-    <!-- Valid options: NFOV_UNBINNED, NFOV_2X2BINNED, WFOV_UNBINNED, WFOV_2X2BINNED, and PASSIVE_IR -->
-    <arg name="depth_mode"                          default="$(arg depth_mode)" />
-    <!-- Valid options: true and false -->
-    <arg name="rgb_point_cloud"                     default="true" />
-    <!-- Valid options: true and false -->
-    <arg name="point_cloud_in_depth_frame"          default="false" />
-    <!-- Valid options: 0: OFF, 1: MASTER, 2: SUBORDINATE. --> 
-    <arg name="wired_sync_mode"                     default="$(arg wired_sync_mode)" />
-  </include>
+      <!-- Valid options: 720P, 1080P, 1440P, 1536P, 2160P, 3072P -->
+      <arg name="color_resolution"                    default="$(arg color_resolution)" />
+      <!-- Valid options: 5, 15, and 30 -->
+      <arg name="fps"                                 default="$(arg fps)" />
+      <!-- Valid options: NFOV_UNBINNED, NFOV_2X2BINNED, WFOV_UNBINNED, WFOV_2X2BINNED, and PASSIVE_IR -->
+      <arg name="depth_mode"                          default="$(arg depth_mode)" />
+      <!-- Valid options: true and false -->
+      <arg name="rgb_point_cloud"                     default="true" />
+      <!-- Valid options: true and false -->
+      <arg name="point_cloud_in_depth_frame"          default="false" />
+      <!-- Valid options: 0: OFF, 1: MASTER, 2: SUBORDINATE. --> 
+      <arg name="wired_sync_mode"                     default="$(arg wired_sync_mode)" />
+    </include>
 
-  <!-- generating image from pcd -->
-  <include file="$(find azure_kinect_ros_driver)/additional_launch/include/pcd_image_converter.launch" if="$(arg enable_generating_image)">
-    <arg name="camera_name"                         default="$(arg cam_name)" />
-  </include>
+    <!-- generating image from pcd -->
+    <include file="$(find azure_kinect_ros_driver)/additional_launch/include/pcd_image_converter.launch" if="$(arg enable_generating_image)">
+      <arg name="camera_name"                         default="$(arg cam_name)" />
+    </include>
+  </group>
 </launch>

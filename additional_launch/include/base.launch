@@ -19,14 +19,14 @@ Licensed under the MIT License.
   <arg name="ir_info_topic_name"                  default="ir/camera_info" />
   <arg name="ir_topic_name"                       default="ir/image_raw" />
 
-  <arg name="tf_prefix"                           default="$(arg base_name)_" />               <!-- Prefix added to tf frame IDs. It typically contains a trailing '_' unless empty. -->
+  <arg name="tf_prefix"                           default="env_$(arg base_name)_" />               <!-- Prefix added to tf frame IDs. It typically contains a trailing '_' unless empty. -->
 
   <param name="$(arg base_name)_description" command="xacro $(find azure_kinect_ros_driver)/urdf/azure_kinect.urdf.xacro tf_prefix:=$(arg tf_prefix)" />
 
-  <node name="joint_state_publisher_$(arg base_name)" pkg="joint_state_publisher" type="joint_state_publisher" >
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
     <remap from="robot_description"               to="$(arg base_name)_description" />
   </node>
-  <node name="robot_state_publisher_$(arg base_name)" pkg="robot_state_publisher" type="robot_state_publisher" >
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
     <remap from="robot_description"               to="$(arg base_name)_description" />
   </node>
 
@@ -51,16 +51,16 @@ Licensed under the MIT License.
   <arg name="imu_rate_target"                     default="0"/>                       <!-- Desired output rate of IMU messages. Set to 0 (default) for full rate (1.6 kHz). --> 
   <arg name="wired_sync_mode"                     default="0"/>                       <!-- Wired sync mode. 0: OFF, 1: MASTER, 2: SUBORDINATE. --> 
 
-  <node pkg="azure_kinect_ros_driver" type="node" name="azure_kinect_ros_driver_$(arg base_name)" output="screen" required="$(arg required)">
+  <node pkg="azure_kinect_ros_driver" type="node" name="azure_kinect_ros_driver" output="screen" required="$(arg required)">
     <!-- original -->
-    <remap from="points2"                         to="$(arg base_name)/$(arg pointcloud2_topic_name)" />
-    <remap from="rgb/image_raw"                   to="$(arg base_name)/$(arg rgb_topic_name)" />
-    <remap from="rgb/camera_info"                 to="$(arg base_name)/$(arg rgb_info_topic_name)" />
-    <remap from="rgb_to_depth/image_raw"          to="$(arg base_name)/$(arg rgb_to_depth_topic_name)" />
-    <remap from="depth/image_raw"                 to="$(arg base_name)/$(arg depth_topic_name)" />
-    <remap from="depth_to_rgb/image_raw"          to="$(arg base_name)/$(arg depth_to_rgb_topic_name)" />
-    <remap from="ir/camera_info"                  to="$(arg base_name)/$(arg ir_info_topic_name)" />
-    <remap from="ir/image_raw"                    to="$(arg base_name)/$(arg ir_topic_name)" />
+    <remap from="points2"                         to="$(arg pointcloud2_topic_name)" />
+    <remap from="rgb/image_raw"                   to="$(arg rgb_topic_name)" />
+    <remap from="rgb/camera_info"                 to="$(arg rgb_info_topic_name)" />
+    <remap from="rgb_to_depth/image_raw"          to="$(arg rgb_to_depth_topic_name)" />
+    <remap from="depth/image_raw"                 to="$(arg depth_topic_name)" />
+    <remap from="depth_to_rgb/image_raw"          to="$(arg depth_to_rgb_topic_name)" />
+    <remap from="ir/camera_info"                  to="$(arg ir_info_topic_name)" />
+    <remap from="ir/image_raw"                    to="$(arg ir_topic_name)" />
     <!-- default -->
     <param name="depth_enabled"     type="bool"   value="$(arg depth_enabled)" />
     <param name="depth_mode"        type="string" value="$(arg depth_mode)" />

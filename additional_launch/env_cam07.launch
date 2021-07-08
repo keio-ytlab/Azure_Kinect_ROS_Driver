@@ -3,7 +3,7 @@
   <arg name="mode"                                  default="pcd_without_color" />
 
   <include file="$(find azure_kinect_ros_driver)/additional_launch/include/$(arg mode).launch">
-    <arg name="cam_name"                            default="env_cam07" />
+    <arg name="cam_name"                            default="cam07" />
     <arg name="serial_number"                       default="000031393912" />
 
     <!-- Valid options: 720P, 1080P, 1440P, 1536P, 2160P, 3072P -->
