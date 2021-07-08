@@ -6,6 +6,7 @@ import ros_numpy
 from sensor_msgs.msg import PointCloud2
 from sensor_msgs.msg import Image
 
+
 class PcdImageConverter():
     def __init__(self):
         self.sub_pcd_ = rospy.Subscriber("~input_pcd", PointCloud2, self.cb_pcd, queue_size=1)
@@ -56,7 +57,7 @@ class PcdImageConverter():
             # save data to arrary
             pcd_original = ros_numpy.numpify(pcd)
             pcd_original = pcd_original.reshape(height, width)
-            
+
             # PCD with rgb
             if 'rgb' in pcd_original:
                 array[:, :] = pcd_original['rgb']
@@ -65,7 +66,7 @@ class PcdImageConverter():
                 array[:, :] = pcd_original['x'] * 255.0
 
             # convert color (html color -> rgb)
-            data = array.view(np.uint8).reshape(array.shape+(4,))[..., :3]
+            data = array.view(np.uint8).reshape(array.shape + (4,))[..., :3]
             image = ros_numpy.msgify(Image, data, encoding='bgr8')
             # finish_time = time.time()
             # print("generate image time : {0}".format(finish_time-start_time))
@@ -73,6 +74,7 @@ class PcdImageConverter():
             return image
         else:
             return None
+
 
 if __name__ == '__main__':
     rospy.init_node("pcd_image_converter")
