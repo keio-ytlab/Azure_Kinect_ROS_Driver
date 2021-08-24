@@ -10,10 +10,10 @@
     <arg name="color_resolution"                    default="720P" />
 
     <!-- Valid options: 5, 15, and 30 -->
-    <arg name="fps"                                 default="5" />
+    <arg name="fps"                                 default="15" />
 
     <!-- Valid options: NFOV_UNBINNED, NFOV_2X2BINNED, WFOV_UNBINNED, WFOV_2X2BINNED, and PASSIVE_IR -->
-    <arg name="depth_mode"                          default="NFOV_2X2BINNED" />
+    <arg name="depth_mode"                          default="WFOV_2X2BINNED" />
 
     <!-- Valid options: 0: OFF, 1: MASTER, 2: SUBORDINATE. --> 
     <arg name="wired_sync_mode"                     default="0" />
