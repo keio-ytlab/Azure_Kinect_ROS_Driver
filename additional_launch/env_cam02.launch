@@ -10,7 +10,7 @@
     <arg name="color_resolution"                    default="720P" />
 
     <!-- Valid options: 5, 15, and 30 -->
-    <arg name="fps"                                 default="15" />
+    <arg name="fps"                                 default="30" />
 
     <!-- Valid options: NFOV_UNBINNED, NFOV_2X2BINNED, WFOV_UNBINNED, WFOV_2X2BINNED, and PASSIVE_IR -->
     <arg name="depth_mode"                          default="NFOV_2X2BINNED" />
